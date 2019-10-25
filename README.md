@@ -21,7 +21,7 @@ namespace Oibi.Tests
         {
             _testFixure = testFixture;
         }
-	}
+    }
 }
 
 ```
