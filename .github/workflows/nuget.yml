@@ -25,4 +25,4 @@ jobs:
         run: nuget setApiKey ${{secrets.NUGET_APIKEY}}
 
       - name: Push generated package to the registry
-        run: nuget push .\Oibi.TestHelper\Oibi.TestHelper\out\*.nupkg -Source "GPR" -SkipDuplicate
+        run: nuget push .\Oibi.TestHelper\Oibi.TestHelper\out\*.nupkg -SkipDuplicate
