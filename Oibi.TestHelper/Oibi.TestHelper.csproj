@@ -6,7 +6,7 @@
     <Description>Helps to write aspnetcore tests</Description>
     <PackageIconUrl>https://image.flaticon.com/icons/svg/2176/2176867.svg</PackageIconUrl>
     <RepositoryUrl>https://github.com/TheTrigger/TestHelper</RepositoryUrl>
-    <PackageTags>C#, xunit, test</PackageTags>
+    <PackageTags>aspnetcore, xunit, test</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
