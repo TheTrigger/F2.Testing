@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Copyright>f.fabrizi91@gmail.com</Copyright>
+    <Description>Helps to write aspnetcore tests</Description>
+    <PackageIconUrl>https://image.flaticon.com/icons/svg/2176/2176867.svg</PackageIconUrl>
+    <RepositoryUrl>https://github.com/TheTrigger/TestHelper</RepositoryUrl>
+    <PackageTags>C#, xunit, test</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
