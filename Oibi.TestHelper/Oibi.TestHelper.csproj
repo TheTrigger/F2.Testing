@@ -7,6 +7,9 @@
     <PackageIconUrl>https://image.flaticon.com/icons/svg/2176/2176867.svg</PackageIconUrl>
     <RepositoryUrl>https://github.com/TheTrigger/TestHelper</RepositoryUrl>
     <PackageTags>aspnetcore, xunit, test</PackageTags>
+    <Version>1.1.0</Version>
+    <PackageReleaseNotes>easy wrap http crud</PackageReleaseNotes>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>

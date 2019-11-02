@@ -1,5 +1,7 @@
 using Oibi.Demo;
 using Oibi.TestHelper;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Oibi.Tests
@@ -16,11 +18,12 @@ namespace Oibi.Tests
             _testFixure = testFixture;
         }
 
-
         [Fact]
-        public void Test1()
+        public async Task Test1()
         {
+            var e = await _testFixure.GetAsync<IEnumerable<WeatherForecast>>("WeatherForecast");
 
+            Assert.NotEmpty(e);
         }
     }
 }
