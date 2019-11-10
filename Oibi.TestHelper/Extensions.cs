@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Oibi.TestHelper
 {
-    internal static class Extensions
+    public static class Extensions
     {
         private const string mediaType = "application/json";
 
