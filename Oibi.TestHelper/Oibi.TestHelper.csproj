@@ -10,6 +10,8 @@
     <Version>3.1.1.1</Version>
     <PackageReleaseNotes></PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
+    <Authors>f.fabrizi91@gmail.com</Authors>
+    <Company>oibi.dev</Company>
   </PropertyGroup>
 
   <ItemGroup>
