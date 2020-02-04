@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -32,12 +34,20 @@ namespace Oibi.TestHelper
         /// </summary>
         public ServerFixture()
         {
-            IWebHostBuilder builder = new WebHostBuilder().UseEnvironment("Development")
+            IWebHostBuilder builder = new WebHostBuilder() //.UseEnvironment("Development")
                     .ConfigureAppConfiguration((_, config) =>
                     {
                         config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                         config.AddJsonFile("appsettings.test.json", optional: true, reloadOnChange: true);
                         config.AddEnvironmentVariables();
+                    })
+                    .ConfigureLogging((_, logging) =>
+                    {
+                        logging.AddDebug();
+                    })
+                    .ConfigureServices(services =>
+                    {
+                        services.AddSingleton<RouteAnalyzer>();
                     })
                     .UseStartup<TStartup>();
 

@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Oibi.Demo.Services;
+using System.Collections.Generic;
 
 namespace Oibi.Demo
 {
@@ -18,7 +21,9 @@ namespace Oibi.Demo
         // This method gets called by the runtime. Use this method to add services to the container.
         public static void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
             services.AddControllers();
+            services.AddSingleton<RandomService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
