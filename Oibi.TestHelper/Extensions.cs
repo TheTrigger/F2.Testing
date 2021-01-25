@@ -7,8 +7,6 @@ namespace Oibi.TestHelper
 {
     public static class Extensions
     {
-        private const string mediaType = "application/json";
-
         public static JsonSerializerOptions JsonOptions { get; set; } = new JsonSerializerOptions
         {
             IgnoreNullValues = false,
@@ -24,7 +22,7 @@ namespace Oibi.TestHelper
         public static StringContent ToStringContent(this object obj)
         {
             var json = JsonSerializer.Serialize(obj);
-            return new StringContent(json, Encoding.Default, mediaType);
+            return new StringContent(json, Encoding.Default, System.Net.Mime.MediaTypeNames.Application.Json);
         }
 
         /// <summary>

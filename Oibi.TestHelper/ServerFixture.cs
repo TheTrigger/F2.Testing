@@ -30,14 +30,15 @@ namespace Oibi.TestHelper
         //public ICollection GetRoutesOfControllerMethod() => throw new NotImplementedException();
 
         /// <summary>
-        /// Instantiate a test server with asppsettings or environment valiables
+        /// Instantiate a test server with asppsettings and environment valiables
         /// </summary>
         public ServerFixture()
         {
-            IWebHostBuilder builder = new WebHostBuilder() //.UseEnvironment("Development")
+            var builder = new WebHostBuilder() //.UseEnvironment("Development")
                     .ConfigureAppConfiguration((_, config) =>
                     {
                         config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                        config.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
                         config.AddJsonFile("appsettings.test.json", optional: true, reloadOnChange: true);
                         config.AddEnvironmentVariables();
                     })
@@ -52,6 +53,7 @@ namespace Oibi.TestHelper
                     .UseStartup<TStartup>();
 
             Server = new TestServer(builder);
+ 
             Client = Server.CreateClient();
         }
 
