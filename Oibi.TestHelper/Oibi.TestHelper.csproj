@@ -7,15 +7,15 @@
     <PackageIconUrl>https://image.flaticon.com/icons/svg/2176/2176867.svg</PackageIconUrl>
     <RepositoryUrl>https://github.com/TheTrigger/TestHelper</RepositoryUrl>
     <PackageTags>aspnetcore, xunit, test</PackageTags>
-    <Version>5.0.2</Version>
+    <Version>5.0.8</Version>
     <PackageReleaseNotes></PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <Authors>oibi.dev</Authors>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.8" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
   </ItemGroup>
 
 </Project>

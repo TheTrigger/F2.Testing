@@ -1,8 +1,15 @@
 # TestHelper
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/643b3b1a38644b0dab7f6d160bd08ec8)](https://www.codacy.com/manual/TheTrigger/TestHelper?utm_source=github.com&utm_medium=referral&utm_content=TheTrigger/TestHelper&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e6e207b4981a49a0b624a882f78954c0)](https://www.codacy.com/gh/TheTrigger/Oibi.TestHelper/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TheTrigger/Oibi.TestHelper&amp;utm_campaign=Badge_Grade)
 
-Don't be scared by tests 😨
+## TODO
+
+- [ ] WebApplicationFactory
+
+- <https://docs.microsoft.com/it-it/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1?view=aspnetcore-5.0>
+- <https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-2.2>
+
+
 
 ```CSharp
 using Oibi.TestHelper;
@@ -15,11 +22,20 @@ namespace Oibi.Tests
     /// </summary>
     public class DemoTests : IClassFixture<ServerFixture<Startup>>
     {
-        ServerFixture<Startup> _testFixure;
+        private readonly ServerFixture<Startup> _testFixure;
+        private readonly WeatherForecastController _controller;
 
         public DemoTests(ServerFixture<Startup> testFixture)
         {
             _testFixure = testFixture;
+            _controller = _testFixure.GetService<WeatherForecastController>();
+        }
+
+        [Fact]
+        public async Task IsGetWorking()
+        {
+            var results = await _testFixure.GetAsync<IEnumerable<WeatherForecast>>("WeatherForecast");
+            Assert.NotEmpty(results);
         }
     }
 }
