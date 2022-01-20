@@ -9,7 +9,7 @@ namespace Oibi.TestHelper
     {
         public static JsonSerializerOptions JsonOptions { get; set; } = new JsonSerializerOptions
         {
-            IgnoreNullValues = false,
+            DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
             PropertyNameCaseInsensitive = true,
             WriteIndented = true,
         };
