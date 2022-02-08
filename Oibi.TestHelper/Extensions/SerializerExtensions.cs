@@ -1,11 +1,12 @@
 ﻿using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Oibi.TestHelper
 {
-    public static class Extensions
+    public static class SerializerExtensions
     {
         public static JsonSerializerOptions JsonOptions { get; set; } = new JsonSerializerOptions
         {
@@ -26,12 +27,12 @@ namespace Oibi.TestHelper
         }
 
         /// <summary>
-        /// Deserialize the response to <see cref="T"/> <see cref="System.Type"/>
+        /// <inheritdoc cref="JsonSerializer.DeserializeAsync{TValue}(System.IO.Stream, JsonSerializerOptions?, System.Threading.CancellationToken)"/>
         /// </summary>
-        public static async Task<T> DeserializeBodyAsync<T>(this HttpResponseMessage response)
+        public static async Task<T> DeserializeBodyAsync<T>(this HttpResponseMessage response, CancellationToken cancellationToken = default)
         {
-            var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-            return await JsonSerializer.DeserializeAsync<T>(stream, JsonOptions).ConfigureAwait(false);
+            var stream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+            return await JsonSerializer.DeserializeAsync<T>(stream, JsonOptions, cancellationToken).ConfigureAwait(false);
         }
     }
 }
