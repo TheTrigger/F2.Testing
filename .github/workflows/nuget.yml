@@ -14,12 +14,11 @@ jobs:
     name: Update NuGet
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-dotnet@v1
+      - name: publish on version change
+        id: publish_nuget
+        uses: rohith/publish-nuget@v2
         with:
-          dotnet-version: 6.0.x
-      - name: Build solution and generate NuGet package
-        run: |
-          cd ./Oibi.TestHelper
-          dotnet pack -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -c Release -o ../out
-      - name: Push generated package to the registry
-        run: dotnet nuget push ../out/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_APIKEY }} --skip-duplicate
+          PROJECT_FILE_PATH: Oibi.TestHelper/Oibi.TestHelper.csproj
+          TAG_COMMIT: true
+          NUGET_KEY: ${{secrets.NUGET_APIKEY}}
+          INCLUDE_SYMBOLS: true
