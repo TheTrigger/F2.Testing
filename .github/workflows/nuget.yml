@@ -15,6 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: publish on version change
+        id: Oibi.TestHelper
         uses: rohith/publish-nuget@v2
         with:
           PROJECT_FILE_PATH: Oibi.TestHelper/Oibi.TestHelper.csproj
