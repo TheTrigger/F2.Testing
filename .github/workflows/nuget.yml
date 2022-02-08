@@ -1,4 +1,4 @@
-# https://github.com/NuGet/setup-nuget
+
 name: NuGet Generation
 
 on:
@@ -8,17 +8,18 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_NOLOGO: true
     name: Update NuGet
     steps:
-      - uses: actions/checkout@master
-      - uses: nuget/setup-nuget@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
         with:
-          nuget-api-key: ${{ secrets.NUGET_APIKEY }}
-
+          dotnet-version: 3.1.x
       - name: Build solution and generate NuGet package
         run: |
           cd Oibi.TestHelper
           dotnet pack -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -c Release -o \out
       - name: Push generated package to the registry
-        run: nuget push \out\*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate
+        run: dotnet nuget push \out\*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_APIKEY }} --skip-duplicate
