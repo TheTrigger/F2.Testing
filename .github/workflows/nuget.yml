@@ -1,4 +1,4 @@
-
+# https://github.com/marketplace/actions/publish-nuget
 name: NuGet Generation
 
 on:
@@ -14,10 +14,7 @@ jobs:
     name: Update NuGet
     steps:
       - uses: actions/checkout@v2
-      - name: publish on version change
-        uses: rohith/publish-nuget@v2
+      - uses: rohith/publish-nuget@v2
         with:
           PROJECT_FILE_PATH: Oibi.TestHelper/Oibi.TestHelper.csproj
-          TAG_COMMIT: true
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
