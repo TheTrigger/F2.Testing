@@ -54,44 +54,47 @@ namespace Oibi.TestHelper
 					.UseStartup<TStartup>();
 
 			Server = new TestServer(builder);
-
 			Client = Server.CreateClient();
 		}
 
 		/// <summary>
 		/// <inheritdoc cref="HttpClient.GetAsync"/>
+		/// <inheritdoc cref="SerializerExtensions.DeserializeBodyAsync{T}(HttpResponseMessage, CancellationToken)"/>
 		/// </summary>
 		public async Task<T> GetAsync<T>(string requestUri, CancellationToken cancellationToken = default)
 		{
 			var request = await Client.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
-			return await request.DeserializeBodyAsync<T>().ConfigureAwait(false);
+			return await request.DeserializeBodyAsync<T>(cancellationToken: cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
 		/// <inheritdoc cref="HttpClient.PostAsync"/>
+		/// <inheritdoc cref="SerializerExtensions.DeserializeBodyAsync{T}(HttpResponseMessage, CancellationToken)"/>
 		/// </summary>
 		public async Task<T> PostAsync<T>(string requestUri, object data, CancellationToken cancellationToken = default)
 		{
 			var request = await Client.PostAsync(requestUri, data.ToStringContent(), cancellationToken).ConfigureAwait(false);
-			return await request.DeserializeBodyAsync<T>().ConfigureAwait(false);
+			return await request.DeserializeBodyAsync<T>(cancellationToken: cancellationToken).ConfigureAwait(false);
 		}
 
-		public async Task<T> PutAsync<T>(string requestUri, object data)
+		/// <summary>
+		/// <inheritdoc cref="HttpClient.PutAsync(string?, HttpContent)"/>
+		/// <inheritdoc cref="SerializerExtensions.DeserializeBodyAsync{T}(HttpResponseMessage, CancellationToken)"/>
+		/// </summary>
+		public async Task<T> PutAsync<T>(string requestUri, object data, CancellationToken cancellationToken = default)
 		{
-			var request = await Client.PutAsync(requestUri, data.ToStringContent()).ConfigureAwait(false);
-			return await request.DeserializeBodyAsync<T>().ConfigureAwait(false);
+			var request = await Client.PutAsync(requestUri, data.ToStringContent(), cancellationToken).ConfigureAwait(false);
+			return await request.DeserializeBodyAsync<T>(cancellationToken: cancellationToken).ConfigureAwait(false);
 		}
 
 		/// <summary>
 		/// <inheritdoc cref="HttpClient.DeleteAsync(string?, CancellationToken)"/>
+		/// <inheritdoc cref="SerializerExtensions.DeserializeBodyAsync{T}(HttpResponseMessage, CancellationToken)"/>
 		/// </summary>
-		/// <typeparam name="T">Expected return type</typeparam>
-		/// <param name="requestUri"><inheritdoc cref="HttpClient.DeleteAsync(string?, CancellationToken)"/></param>
-		/// <returns><inheritdoc cref="HttpClient.DeleteAsync(string?, CancellationToken)"/></returns>
 		public async Task<T> DeleteAsync<T>(string requestUri, CancellationToken cancellationToken = default)
 		{
 			var request = await Client.DeleteAsync(requestUri, cancellationToken).ConfigureAwait(false);
-			return await request.DeserializeBodyAsync<T>().ConfigureAwait(false);
+			return await request.DeserializeBodyAsync<T>(cancellationToken: cancellationToken).ConfigureAwait(false);
 		}
 
 		public void Dispose()
@@ -120,5 +123,38 @@ namespace Oibi.TestHelper
 		//	return Task.CompletedTask;
 		//	//throw new NotImplementedException();
 		//}
+
+		/// <summary>
+		/// <inheritdoc cref="HttpClient.GetAsync"/>
+		/// </summary>
+		public Task<HttpResponseMessage> GetAsync(string requestUri, CancellationToken cancellationToken = default)
+		{
+			return Client.GetAsync(requestUri, cancellationToken);
+		}
+		
+		/// <summary>
+		/// <inheritdoc cref="HttpClient.PostAsync"/>
+		/// </summary>
+		public Task<HttpResponseMessage> PostAsync(string requestUri, object data, CancellationToken cancellationToken = default)
+		{
+			return Client.PostAsync(requestUri, data.ToStringContent(), cancellationToken);
+		}
+
+		/// <summary>
+		/// <inheritdoc cref="HttpClient.PutAsync"/>
+		/// </summary>
+		public Task<HttpResponseMessage> PutAsync(string requestUri, object data, CancellationToken cancellationToken = default)
+		{
+			return Client.PutAsync(requestUri, data.ToStringContent(), cancellationToken);
+		}
+
+		/// <summary>
+		/// <inheritdoc cref="HttpClient.DeleteAsync(string?, CancellationToken)"/>
+		/// </summary>
+		public Task<HttpResponseMessage> DeleteAsync(string requestUri, CancellationToken cancellationToken = default)
+		{
+			return Client.DeleteAsync(requestUri, cancellationToken);
+		}
+
 	}
 }
