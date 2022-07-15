@@ -6,7 +6,7 @@
     <Description></Description>
     <RepositoryUrl>https://github.com/TheTrigger/TestHelper</RepositoryUrl>
     <PackageTags>aspnetcore, xunit, test</PackageTags>
-    <Version>6.0.5</Version>
+    <Version>6.0.7</Version>
     <PackageReleaseNotes></PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <Authors>oibi.dev</Authors>
