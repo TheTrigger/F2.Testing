@@ -1,34 +1,38 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Oibi.Demo;
+﻿using Oibi.Demo;
 using Oibi.Demo.Controllers;
+using Oibi.Demo.Extensions;
 using Oibi.TestHelper;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 using static Oibi.Demo.Controllers.WeatherForecastController;
 
 namespace Oibi.Tests
 {
-	/// <summary>
-	/// Basic configuration
-	/// </summary>
-	public class ClientTests : IClassFixture<ServerFixture<Startup>>
+    /// <summary>
+    /// Basic configuration
+    /// </summary>
+    public class ClientTests : IClassFixture<ServerFixture<Startup>>
 	{
 		private readonly ServerFixture<Startup> _testFixure;
 		private readonly WeatherForecastController _controller;
+		private readonly HttpClient _client;
 
 		public ClientTests(ServerFixture<Startup> testFixture)
 		{
 			_testFixure = testFixture;
 			_controller = _testFixure.GetService<WeatherForecastController>();
+			_client = _testFixure.CreateClient(); // CLASSIC METHOD
 		}
 
 		[Fact]
 		public async Task IsGetWorking()
 		{
-			var results = await _testFixure.GetAsync<IEnumerable<WeatherForecast>>("WeatherForecast");
+            var results = await _client.GetAsync("WeatherForecast") 
+				.DeserializeAsync<IEnumerable<WeatherForecast>>();
 
-			Assert.NotEmpty(results);
+            Assert.NotEmpty(results);
 		}
 
 		[Fact]
@@ -41,9 +45,10 @@ namespace Oibi.Tests
 				Name = "Fabio"
 			};
 
-			var result = await _testFixure.PostAsync<DataExample>("WeatherForecast", dataExample);
+			var result = await _client.PostAsync("WeatherForecast", dataExample.ToStringContent())
+                .DeserializeAsync<DataExample>();
 
-			Assert.NotNull(result);
+            Assert.NotNull(result);
 			Assert.IsType<DataExample>(result);
 			Assert.Equal(dataExample.Age, result.Age);
 			Assert.Equal(dataExample.BirthDay, result.BirthDay);
@@ -60,9 +65,9 @@ namespace Oibi.Tests
 				Name = "Fabio"
 			};
 
-			var result = await _testFixure.PutAsync<DataExample>("WeatherForecast", dataExample);
+			var result = await _testFixure.PutAsync<DataExample>("WeatherForecast", dataExample); // ALTERNATIVE METHOD
 
-			Assert.NotNull(result);
+            Assert.NotNull(result);
 			Assert.IsType<DataExample>(result);
 			Assert.Equal(dataExample.Age, result.Age);
 			Assert.Equal(dataExample.BirthDay, result.BirthDay);

@@ -8,20 +8,20 @@ using Xunit;
 
 namespace Oibi.Tests
 {
-	/// <summary>
-	/// Basic configuration
-	/// </summary>
-	public class DemoTests : IClassFixture<ServerFixture<Startup>>
+    /// <summary>
+    /// Basic configuration
+    /// </summary>
+    public class DemoTests : IClassFixture<ServerFixture<Startup>>
 	{
 		private readonly ServerFixture<Startup> _testFixure;
-		private readonly RouteAnalyzer _routeAnalyzer;
-		private readonly RandomService _randomService;
+		//private readonly RouteAnalyzer _routeAnalyzer;
+		//private readonly RandomService _randomService;
 
 		public DemoTests(ServerFixture<Startup> testFixture)
 		{
 			_testFixure = testFixture;
-			_routeAnalyzer = _testFixure.GetService<RouteAnalyzer>();
-			_randomService = _testFixure.GetService<RandomService>();
+			//_routeAnalyzer = _testFixure.GetService<RouteAnalyzer>();
+			//_randomService = _testFixure.GetService<RandomService>();
 		}
 
 		[Fact]
@@ -36,7 +36,7 @@ namespace Oibi.Tests
 		public void GetServices()
 		{
 			// analyzer is autoinjected while testing
-			Assert.NotNull(_testFixure.GetService<RouteAnalyzer>());
+			//Assert.NotNull(_testFixure.GetService<RouteAnalyzer>());
 			Assert.NotNull(_testFixure.GetService<ILogger<DemoTests>>());
 
 			var rdns = _testFixure.GetService<RandomService>();

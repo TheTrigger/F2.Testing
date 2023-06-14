@@ -29,8 +29,18 @@ namespace Oibi.TestHelper
         /// <summary>
         /// <inheritdoc cref="JsonSerializer.DeserializeAsync{TValue}(System.IO.Stream, JsonSerializerOptions?, System.Threading.CancellationToken)"/>
         /// </summary>
-        public static async Task<T> DeserializeBodyAsync<T>(this HttpResponseMessage response, CancellationToken cancellationToken = default)
+        public static async Task<T> DeserializeAsync<T>(this HttpResponseMessage response, CancellationToken cancellationToken = default)
         {
+            var stream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+            return await JsonSerializer.DeserializeAsync<T>(stream, JsonOptions, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// <inheritdoc cref="JsonSerializer.DeserializeAsync{TValue}(System.IO.Stream, JsonSerializerOptions?, System.Threading.CancellationToken)"/>
+        /// </summary>
+        public static async Task<T> DeserializeAsync<T>(this Task<HttpResponseMessage> task, CancellationToken cancellationToken = default)
+        {
+            var response = await task.ConfigureAwait(false);
             var stream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
             return await JsonSerializer.DeserializeAsync<T>(stream, JsonOptions, cancellationToken).ConfigureAwait(false);
         }
