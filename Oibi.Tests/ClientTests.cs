@@ -1,6 +1,5 @@
 ﻿using Oibi.Demo;
 using Oibi.Demo.Controllers;
-using Oibi.Demo.Extensions;
 using Oibi.TestHelper;
 using System.Collections.Generic;
 using System.Net.Http;
