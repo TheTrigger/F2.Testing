@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,12 +22,24 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup> /*, IHost
     //public ICollection GetRoutesOfController() => throw new NotImplementedException();
     //public ICollection GetRoutesOfControllerMethod() => throw new NotImplementedException();
 
+    private IServiceScope _scope;
+
     /// <summary>
     /// Get generic service
     /// </summary>
     public TService GetService<TService>()
     {
-        return (TService)Server.Services.GetService(typeof(TService));
+        _scope ??= Server.Services.CreateScope();
+        return _scope.ServiceProvider.GetService<TService>();
+    }
+
+    /// <summary>
+    /// Get generic services
+    /// </summary>
+    public IEnumerable<TService> GetServices<TService>()
+    {
+        _scope ??= Server.Services.CreateScope();
+        return _scope.ServiceProvider.GetServices<TService>();
     }
 
 
