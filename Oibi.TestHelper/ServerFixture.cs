@@ -8,16 +8,17 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace Oibi.TestHelper;
 
-public class ServerFixture<TStartup> : WebApplicationFactory<TStartup> /*, IHostedService,*/ where TStartup : class
+public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLifetime /*, IHostedService,*/ where TStartup : class
 {
     /// <summary>
     /// Your <see cref="HttpClient"/>
     /// </summary>
-    public HttpClient Client { get; private set; }
-    private bool _clientConfigured = false;
+    public HttpClient Client { get; internal set; }
+    //private bool _clientConfigured = false;
 
     //public ICollection GetRoutesOfController() => throw new NotImplementedException();
     //public ICollection GetRoutesOfControllerMethod() => throw new NotImplementedException();
@@ -63,12 +64,6 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup> /*, IHost
         })
         .UseStartup<TStartup>()
         ;
-
-        if (_clientConfigured == false)
-        {
-            _clientConfigured = true;
-            Client = CreateClient();
-        }
     }
 
     /// <summary>
@@ -151,6 +146,22 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup> /*, IHost
     public Task<HttpResponseMessage> DeleteAsync(string requestUri, CancellationToken cancellationToken = default)
     {
         return Client.DeleteAsync(requestUri, cancellationToken);
+    }
+
+    public Task InitializeAsync()
+    {
+        //if (!_clientConfigured)
+        {
+            //_clientConfigured = true;
+            Client = CreateClient();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    Task IAsyncLifetime.DisposeAsync()
+    {
+        return base.DisposeAsync().AsTask();
     }
 }
 
