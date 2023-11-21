@@ -4,7 +4,7 @@
 
 ## TODO
 
-- [ ] WebApplicationFactory
+- [x] WebApplicationFactory
 
 - <https://docs.microsoft.com/it-it/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1?view=aspnetcore-5.0>
 - <https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-2.2>
