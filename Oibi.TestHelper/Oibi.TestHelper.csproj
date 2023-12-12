@@ -5,7 +5,7 @@
 		<Description></Description>
 		<RepositoryUrl>https://github.com/TheTrigger/TestHelper</RepositoryUrl>
 		<PackageTags>aspnetcore, xunit, test</PackageTags>
-		<Version>8.0.0</Version>
+		<Version>8.0.1</Version>
 		<PackageReleaseNotes></PackageReleaseNotes>
 		<RepositoryType>git</RepositoryType>
 		<Authors>oibi.dev</Authors>
@@ -16,7 +16,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.0" />
-		<PackageReference Include="xunit.extensibility.core" Version="2.6.2" />
+		<PackageReference Include="xunit.extensibility.core" Version="2.6.3" />
 	</ItemGroup>
 
 	<ItemGroup>
