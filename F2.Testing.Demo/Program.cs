@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Oibi.Demo
+namespace F2.Demo
 {
     public static class Program
     {

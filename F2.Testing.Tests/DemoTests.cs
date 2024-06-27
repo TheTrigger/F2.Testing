@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
-using Oibi.Demo;
-using Oibi.Demo.Services;
-using Oibi.TestHelper;
+using F2.Demo;
+using F2.Demo.Services;
+using F2.Testing;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Oibi.Tests
+namespace F2.Tests
 {
     /// <summary>
     /// Basic configuration

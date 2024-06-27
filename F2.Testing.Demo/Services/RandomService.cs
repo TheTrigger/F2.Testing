@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 
-namespace Oibi.Demo.Services
+namespace F2.Demo.Services
 {
     /// <summary>
     /// Dummy service

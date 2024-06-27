@@ -4,7 +4,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Oibi.TestHelper
+namespace F2.Testing
 {
     public static class SerializerExtensions
     {

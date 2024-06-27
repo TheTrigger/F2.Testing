@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Oibi.TestHelper
+namespace F2.Testing
 {
     /// <summary>
     /// Route informations

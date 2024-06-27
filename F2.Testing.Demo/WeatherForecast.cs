@@ -1,6 +1,6 @@
 using System;
 
-namespace Oibi.Demo
+namespace F2.Demo
 {
     public class WeatherForecast
     {

@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Oibi.Demo.Services;
+using F2.Demo.Services;
 using System.Collections.Generic;
 
-namespace Oibi.Demo
+namespace F2.Demo
 {
     public class Startup
     {

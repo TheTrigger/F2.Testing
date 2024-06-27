@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Oibi.TestHelper.Extensions
+namespace F2.Testing.Extensions
 {
     /// <summary>
     /// <inheritdoc cref="HttpResponseMessage"/>

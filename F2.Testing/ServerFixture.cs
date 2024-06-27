@@ -4,13 +4,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Oibi.TestHelper;
+namespace F2.Testing;
 
 public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLifetime /*, IHostedService,*/ where TStartup : class
 {
@@ -25,22 +27,26 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
 
     private IServiceScope _scope;
 
-    /// <summary>
-    /// Get generic service
-    /// </summary>
+    /// <inheritdoc cref="ServiceProviderServiceExtensions.GetService{T}(IServiceProvider)"/>
     public TService GetService<TService>()
     {
-        _scope ??= Server.Services.CreateScope();
-        return _scope.ServiceProvider.GetService<TService>();
+        return ServiceProvider.GetService<TService>();
     }
 
-    /// <summary>
-    /// Get generic services
-    /// </summary>
+    /// <inheritdoc cref="ServiceProviderServiceExtensions.GetServices{T}(IServiceProvider)"/>
     public IEnumerable<TService> GetServices<TService>()
     {
-        _scope ??= Server.Services.CreateScope();
-        return _scope.ServiceProvider.GetServices<TService>();
+        return ServiceProvider.GetServices<TService>();
+    }
+
+    /// <inheritdoc cref="IServiceProvider"/>
+    public IServiceProvider ServiceProvider
+    {
+        get
+        {
+            _scope ??= Server.Services.CreateScope();
+            return _scope.ServiceProvider;
+        }
     }
 
 
@@ -49,9 +55,10 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
     /// </summary>
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.ConfigureAppConfiguration((_, config) =>
+        builder.UseStartup<TStartup>()
+        .ConfigureAppConfiguration((hostingContext, config) =>
         {
-            config.AddJsonFile("appsettings.test.json", optional: true, reloadOnChange: true);
+            config.AddJsonFile(Path.Join(Directory.GetCurrentDirectory(), "appsettings.test.json"), optional: false, reloadOnChange: true);
         })
         .ConfigureLogging((_, logging) =>
         {
@@ -62,7 +69,6 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
             //services.AddHostedService<ServerFixture<TStartup>>();
             //services.AddSingleton<RouteAnalyzer>();
         })
-        .UseStartup<TStartup>()
         ;
     }
 
@@ -161,6 +167,7 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
 
     Task IAsyncLifetime.DisposeAsync()
     {
+        _scope?.Dispose();
         return base.DisposeAsync().AsTask();
     }
 }

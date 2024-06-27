@@ -1,13 +1,13 @@
-﻿using Oibi.Demo;
-using Oibi.Demo.Controllers;
-using Oibi.TestHelper;
+﻿using F2.Demo;
+using F2.Demo.Controllers;
+using F2.Testing;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
-using static Oibi.Demo.Controllers.WeatherForecastController;
+using static F2.Demo.Controllers.WeatherForecastController;
 
-namespace Oibi.Tests
+namespace F2.Tests
 {
     /// <summary>
     /// Basic configuration

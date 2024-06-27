@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Oibi.TestHelper
+namespace F2.Testing
 {
     /// <summary>
     /// Code of https://github.com/kobake/AspNetCore.RouteAnalyzer/blob/01f0194f15e724ddbbb4a670e5f94f73cf313b40/AspNetCore.RouteAnalyzer/Inner/RouteAnalyzerImpl.cs

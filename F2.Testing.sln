@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oibi.TestHelper", "Oibi.TestHelper\Oibi.TestHelper.csproj", "{F3E5744F-8F7E-4B29-8284-260AFDA1927B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F2.TestHelper", "F2.Testing\F2.Testing.csproj", "{F3E5744F-8F7E-4B29-8284-260AFDA1927B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oibi.Tests", "Oibi.Tests\Oibi.Tests.csproj", "{D9AC6B26-0770-4237-865D-FAC44DF10F70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F2.TestHelper.Tests", "F2.Testing.Tests\F2.Testing.Tests.csproj", "{D9AC6B26-0770-4237-865D-FAC44DF10F70}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oibi.Demo", "Oibi.Demo\Oibi.Demo.csproj", "{73670B4B-8A8E-4FF4-8EDF-5CD97620610F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F2.TestHelper.Demo", "F2.Testing.Demo\F2.Testing.Demo.csproj", "{73670B4B-8A8E-4FF4-8EDF-5CD97620610F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0AD6F960-0957-409F-ABB1-66FE642ADE90}"
 	ProjectSection(SolutionItems) = preProject

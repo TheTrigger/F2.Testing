@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.test.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.test.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageReference Include="xunit" Version="2.8.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1">
@@ -20,8 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Oibi.Demo\Oibi.Demo.csproj" />
-    <ProjectReference Include="..\Oibi.TestHelper\Oibi.TestHelper.csproj" />
+    <ProjectReference Include="..\F2.Testing.Demo\F2.Testing.Demo.csproj" />
+    <ProjectReference Include="..\F2.Testing\F2.Testing.csproj" />
   </ItemGroup>
 
 </Project>

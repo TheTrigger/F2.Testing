@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Oibi.Demo.Controllers
+namespace F2.Demo.Controllers
 {
     [ApiController]
     [Route("[controller]")]
