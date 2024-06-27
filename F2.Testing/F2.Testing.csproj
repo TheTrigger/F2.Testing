@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<Copyright>f.fabrizi91@gmail.com</Copyright>
+		<Copyright>info@fabrizi.software</Copyright>
 		<Description>Basic test utilities</Description>
 		<RepositoryUrl>https://github.com/TheTrigger/TestHelper</RepositoryUrl>
 		<PackageTags>aspnetcore, xunit, test</PackageTags>
 		<Version>8.0.6.1</Version>
 		<PackageReleaseNotes></PackageReleaseNotes>
 		<RepositoryType>git</RepositoryType>
-		<Authors>oibi.dev</Authors>
+		<Authors>fabrizi.software</Authors>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>flask.png</PackageIcon>
 	</PropertyGroup>
