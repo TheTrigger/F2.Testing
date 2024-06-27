@@ -58,7 +58,7 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
         builder.UseStartup<TStartup>()
         .ConfigureAppConfiguration((hostingContext, config) =>
         {
-            config.AddJsonFile(Path.Join(Directory.GetCurrentDirectory(), "appsettings.test.json"), optional: false, reloadOnChange: true);
+            config.AddJsonFile(Path.Join(Directory.GetCurrentDirectory(), "appsettings.test.json"), optional: true, reloadOnChange: true);
         })
         .ConfigureLogging((_, logging) =>
         {
