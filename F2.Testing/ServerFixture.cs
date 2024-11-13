@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,35 +21,47 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
     /// Your <see cref="HttpClient"/>
     /// </summary>
     public HttpClient Client { get; internal set; }
+    public CookieContainer CookieContainer { get; private set; } = new CookieContainer();
+
     //private bool _clientConfigured = false;
 
     //public ICollection GetRoutesOfController() => throw new NotImplementedException();
     //public ICollection GetRoutesOfControllerMethod() => throw new NotImplementedException();
 
     private IServiceScope _scope;
+    private HttpClientHandler _handler;
+
+    public ServerFixture()
+    {
+        //_handler = new HttpClientHandler
+        //{
+        //    CookieContainer = CookieContainer,
+        //    UseCookies = true,
+        //};
+
+        //var delegateHandler = new DelegatingHandler { InnerHandler = _handler };
+
+        //Client = this.CreateClient(new WebApplicationFactoryClientOptions { Handler = delegatingHandler });
+        //Client = CreateDefaultClient(_handler);
+    }
 
     /// <inheritdoc cref="ServiceProviderServiceExtensions.GetService{T}(IServiceProvider)"/>
     public TService GetService<TService>()
     {
-        return ServiceProvider.GetService<TService>();
+        return Services.GetService<TService>();
+    }
+
+    /// <inheritdoc cref="ServiceProviderServiceExtensions.GetRequiredService{T}(IServiceProvider)"/>
+    public TService GetRequiredService<TService>()
+    {
+        return Services.GetRequiredService<TService>();
     }
 
     /// <inheritdoc cref="ServiceProviderServiceExtensions.GetServices{T}(IServiceProvider)"/>
     public IEnumerable<TService> GetServices<TService>()
     {
-        return ServiceProvider.GetServices<TService>();
+        return Services.GetServices<TService>();
     }
-
-    /// <inheritdoc cref="IServiceProvider"/>
-    public IServiceProvider ServiceProvider
-    {
-        get
-        {
-            _scope ??= Server.Services.CreateScope();
-            return _scope.ServiceProvider;
-        }
-    }
-
 
     /// <summary>
     /// Instantiate a test server with asppsettings and environment valiables
@@ -154,7 +167,7 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
         return Client.DeleteAsync(requestUri, cancellationToken);
     }
 
-    public Task InitializeAsync()
+    public virtual Task InitializeAsync()
     {
         //if (!_clientConfigured)
         {
