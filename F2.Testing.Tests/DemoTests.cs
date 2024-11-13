@@ -6,44 +6,62 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace F2.Tests
+namespace F2.Tests;
+
+/// <summary>
+/// Basic configuration
+/// </summary>
+public class DemoTests : IClassFixture<ServerFixture<Startup>>, IAsyncLifetime
 {
-    /// <summary>
-    /// Basic configuration
-    /// </summary>
-    public class DemoTests : IClassFixture<ServerFixture<Startup>>
-	{
-		private readonly ServerFixture<Startup> _testFixure;
-		//private readonly RouteAnalyzer _routeAnalyzer;
-		//private readonly RandomService _randomService;
+    private readonly ServerFixture<Startup> _testFixure;
+    private bool _isInitialized = false;
+    //private readonly RouteAnalyzer _routeAnalyzer;
+    //private readonly RandomService _randomService;
 
-		public DemoTests(ServerFixture<Startup> testFixture)
-		{
-			_testFixure = testFixture;
-			//_routeAnalyzer = _testFixure.GetService<RouteAnalyzer>();
-			//_randomService = _testFixure.GetService<RandomService>();
-		}
+    public DemoTests(ServerFixture<Startup> testFixture)
+    {
+        _testFixure = testFixture;
+        //_routeAnalyzer = _testFixure.GetService<RouteAnalyzer>();
+        //_randomService = _testFixure.GetService<RandomService>();
+    }
 
-		[Fact]
-		public async Task GetWeatherForecast()
-		{
-			var results = await _testFixure.GetAsync<IEnumerable<WeatherForecast>>("WeatherForecast");
+    public Task InitializeAsync()
+    {
+        _isInitialized = true;
+        return Task.CompletedTask;
+    }
 
-			Assert.NotEmpty(results);
-		}
+    [Fact]
+    public Task IsInitialized()
+    {
+        Assert.True(_isInitialized);
+        return Task.CompletedTask;
+    }
 
-		[Fact]
-		public void GetServices()
-		{
-			// analyzer is autoinjected while testing
-			//Assert.NotNull(_testFixure.GetService<RouteAnalyzer>());
-			Assert.NotNull(_testFixure.GetService<ILogger<DemoTests>>());
+    [Fact]
+    public async Task GetWeatherForecast()
+    {
+        var results = await _testFixure.GetAsync<IEnumerable<WeatherForecast>>("WeatherForecast");
 
-			var rdns = _testFixure.GetService<RandomService>();
-			Assert.NotNull(rdns);
+        Assert.NotEmpty(results);
+    }
 
-			var number = rdns.GetRandomNumber();
-			Assert.True(number >= 0);
-		}
-	}
+    [Fact]
+    public void GetServices()
+    {
+        // analyzer is autoinjected while testing
+        //Assert.NotNull(_testFixure.GetService<RouteAnalyzer>());
+        Assert.NotNull(_testFixure.GetService<ILogger<DemoTests>>());
+
+        var rdns = _testFixure.GetService<RandomService>();
+        Assert.NotNull(rdns);
+
+        var number = rdns.GetRandomNumber();
+        Assert.True(number >= 0);
+    }
+
+    public Task DisposeAsync()
+    {
+        return Task.CompletedTask;
+    }
 }
