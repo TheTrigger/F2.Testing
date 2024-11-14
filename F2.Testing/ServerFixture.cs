@@ -83,10 +83,6 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
         })
         .ConfigureServices(services =>
         {
-            foreach (var service in services)
-            {
-                Console.WriteLine($"Service: {service.ServiceType.FullName}, Lifetime: {service.Lifetime}");
-            }
         })
         ;
     }
