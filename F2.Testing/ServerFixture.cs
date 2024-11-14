@@ -73,17 +73,17 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseStartup<TStartup>()
-        .ConfigureAppConfiguration((hostingContext, config) =>
-        {
-            config.AddJsonFile(Path.Join(Directory.GetCurrentDirectory(), "appsettings.test.json"), optional: true, reloadOnChange: true);
-        })
-        .ConfigureLogging((_, logging) =>
-        {
-            logging.AddDebug();
-        })
-        .ConfigureServices(services =>
-        {
-        })
+            .ConfigureAppConfiguration((hostingContext, config) =>
+            {
+                config.AddJsonFile(Path.Join(Directory.GetCurrentDirectory(), "appsettings.test.json"), optional: true, reloadOnChange: true);
+            })
+            .ConfigureLogging((_, logging) =>
+            {
+                logging.AddDebug();
+            })
+            .ConfigureServices(services =>
+            {
+            })
         ;
     }
 
