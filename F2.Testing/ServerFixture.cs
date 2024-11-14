@@ -15,7 +15,7 @@ using Xunit;
 
 namespace F2.Testing;
 
-public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLifetime /*, IHostedService,*/ where TStartup : class
+public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLifetime where TStartup : class
 {
     /// <summary>
     /// Your <see cref="HttpClient"/>
@@ -72,7 +72,7 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
     /// </summary>
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.UseStartup<TStartup>()
+        builder //.UseStartup<TStartup>() already called by WebApplicationFactory
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.AddJsonFile(Path.Join(Directory.GetCurrentDirectory(), "appsettings.test.json"), optional: true, reloadOnChange: true);
@@ -86,6 +86,8 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
             })
         ;
     }
+
+    #region HTTP HELPERS
 
     /// <summary>
     /// <inheritdoc cref="HttpClient.GetAsync"/>
@@ -127,16 +129,6 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
         return await request.DeserializeAsync<T>(cancellationToken: cancellationToken).ConfigureAwait(false);
     }
 
-    public Task StartAsync(CancellationToken cancellationToken)
-    {
-        return Task.CompletedTask;
-    }
-
-    public Task StopAsync(CancellationToken cancellationToken)
-    {
-        return Task.CompletedTask;
-    }
-
     /// <summary>
     /// <inheritdoc cref="HttpClient.GetAsync"/>
     /// </summary>
@@ -169,6 +161,8 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
         return Client.DeleteAsync(requestUri, cancellationToken);
     }
 
+    #endregion
+
     public virtual Task InitializeAsync()
     {
         Client = CreateClient();
@@ -176,9 +170,9 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
         return Task.CompletedTask;
     }
 
-    public override ValueTask DisposeAsync()
+    Task IAsyncLifetime.DisposeAsync()
     {
-        return base.DisposeAsync();
+        return base.DisposeAsync().AsTask();
     }
 }
 
