@@ -1,6 +1,7 @@
 ﻿using F2.Demo;
 using F2.Testing;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -17,7 +18,7 @@ namespace F2.Tests
 		public SettingsTests(ServerFixture<Startup> testFixture)
 		{
 			_testFixture = testFixture;
-            _configuration = testFixture.GetService<IConfiguration>();
+            _configuration = testFixture.Services.GetRequiredService<IConfiguration>();
         }
 
         [Fact]

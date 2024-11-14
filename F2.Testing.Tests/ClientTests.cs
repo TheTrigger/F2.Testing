@@ -1,11 +1,12 @@
 ﻿using F2.Demo;
-using F2.Demo.Controllers;
 using F2.Testing;
+using F2.Testing.Demo;
+using F2.Testing.Demo.Controllers;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
-using static F2.Demo.Controllers.WeatherForecastController;
 
 namespace F2.Tests;
 
@@ -15,14 +16,12 @@ namespace F2.Tests;
 public class ClientTests : IClassFixture<ServerFixture<Startup>>
 {
 	private readonly ServerFixture<Startup> _testFixure;
-	private readonly WeatherForecastController _controller;
 	private readonly HttpClient _client;
 
 	public ClientTests(ServerFixture<Startup> testFixture)
 	{
 		_testFixure = testFixture;
-		_controller = _testFixure.GetService<WeatherForecastController>();
-		_client = _testFixure.CreateClient(); // CLASSIC METHOD
+		_client = _testFixure.CreateClient();
 	}
 
 	[Fact]

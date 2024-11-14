@@ -23,10 +23,11 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
     public HttpClient Client { get; internal set; }
     public CookieContainer CookieContainer { get; private set; } = new CookieContainer();
 
-    //private bool _clientConfigured = false;
-
-    //public ICollection GetRoutesOfController() => throw new NotImplementedException();
-    //public ICollection GetRoutesOfControllerMethod() => throw new NotImplementedException();
+    /// <summary>
+    /// Provides access to services within the created scope. 
+    /// Use this to resolve scoped services
+    /// </summary>
+    public IServiceProvider ScopedServices => _scope.ServiceProvider;
 
     private IServiceScope _scope;
     private HttpClientHandler _handler;
@@ -45,18 +46,21 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
         //Client = CreateDefaultClient(_handler);
     }
 
+    [Obsolete("Use .Services or .ScopedServices")]
     /// <inheritdoc cref="ServiceProviderServiceExtensions.GetService{T}(IServiceProvider)"/>
     public TService GetService<TService>()
     {
         return Services.GetService<TService>();
     }
 
+    [Obsolete("Use .Services or .ScopedServices")]
     /// <inheritdoc cref="ServiceProviderServiceExtensions.GetRequiredService{T}(IServiceProvider)"/>
     public TService GetRequiredService<TService>()
     {
         return Services.GetRequiredService<TService>();
     }
 
+    [Obsolete("Use .Services or .ScopedServices")]
     /// <inheritdoc cref="ServiceProviderServiceExtensions.GetServices{T}(IServiceProvider)"/>
     public IEnumerable<TService> GetServices<TService>()
     {
@@ -79,8 +83,10 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
         })
         .ConfigureServices(services =>
         {
-            //services.AddHostedService<ServerFixture<TStartup>>();
-            //services.AddSingleton<RouteAnalyzer>();
+            foreach (var service in services)
+            {
+                Console.WriteLine($"Service: {service.ServiceType.FullName}, Lifetime: {service.Lifetime}");
+            }
         })
         ;
     }
@@ -169,12 +175,8 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
 
     public virtual Task InitializeAsync()
     {
-        //if (!_clientConfigured)
-        {
-            //_clientConfigured = true;
-            Client = CreateClient();
-        }
-
+        Client = CreateClient();
+        _scope = Services.CreateScope();
         return Task.CompletedTask;
     }
 

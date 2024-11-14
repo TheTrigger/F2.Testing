@@ -5,6 +5,8 @@ using F2.Testing;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
+using Microsoft.Extensions.DependencyInjection;
+using F2.Testing.Demo;
 
 namespace F2.Tests;
 
@@ -51,9 +53,9 @@ public class DemoTests : IClassFixture<ServerFixture<Startup>>, IAsyncLifetime
     {
         // analyzer is autoinjected while testing
         //Assert.NotNull(_testFixure.GetService<RouteAnalyzer>());
-        Assert.NotNull(_testFixure.GetService<ILogger<DemoTests>>());
+        Assert.NotNull(_testFixure.Services.GetRequiredService<ILogger<DemoTests>>());
 
-        var rdns = _testFixure.GetService<RandomService>();
+        var rdns = _testFixure.Services.GetRequiredService<RandomService>();
         Assert.NotNull(rdns);
 
         var number = rdns.GetRandomNumber();
