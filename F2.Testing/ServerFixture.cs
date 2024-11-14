@@ -176,10 +176,9 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
         return Task.CompletedTask;
     }
 
-    Task IAsyncLifetime.DisposeAsync()
+    public override ValueTask DisposeAsync()
     {
-        _scope?.Dispose();
-        return base.DisposeAsync().AsTask();
+        return base.DisposeAsync();
     }
 }
 
