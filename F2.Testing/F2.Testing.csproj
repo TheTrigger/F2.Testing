@@ -5,12 +5,13 @@
 		<Description>Basic test utilities</Description>
 		<RepositoryUrl>https://github.com/TheTrigger/TestHelper</RepositoryUrl>
 		<PackageTags>aspnetcore, xunit, test</PackageTags>
-		<Version>8.0.11.1</Version>
+		<Version>8.0.11.2</Version>
 		<PackageReleaseNotes></PackageReleaseNotes>
 		<RepositoryType>git</RepositoryType>
 		<Authors>fabrizi.software</Authors>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageIcon>flask.png</PackageIcon>
+		<UserSecretsId>04a6300a-dbb6-4093-b5d6-1ebd5d35be79</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
