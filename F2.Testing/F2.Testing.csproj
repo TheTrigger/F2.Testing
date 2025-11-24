@@ -1,23 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<Authors>fabrizi.software</Authors>
+		<Company>FABRIZI.SOFTWARE</Company>
 		<Copyright>info@fabrizi.software</Copyright>
 		<Description>Basic test utilities</Description>
-		<RepositoryUrl>https://github.com/TheTrigger/TestHelper</RepositoryUrl>
-		<PackageTags>aspnetcore, xunit, test</PackageTags>
-		<Version>8.0.11.4</Version>
-		<PackageReleaseNotes></PackageReleaseNotes>
-		<RepositoryType>git</RepositoryType>
-		<Authors>fabrizi.software</Authors>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+		<IncludeSymbols>True</IncludeSymbols>
+		<Nullable>enable</Nullable>
 		<PackageIcon>flask.png</PackageIcon>
-		<UserSecretsId>04a6300a-dbb6-4093-b5d6-1ebd5d35be79</UserSecretsId>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageTags>aspnetcore, xunit, test</PackageTags>
+		<RepositoryType>git</RepositoryType>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<TargetFramework>net10.0</TargetFramework>
+		<Title>F2.Repository</Title>
+		<Version>$(Version)</Version>
+		<OutputType>Library</OutputType>
+		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.11" />
-		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.11" />
-		<PackageReference Include="xunit.extensibility.core" Version="2.9.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="10.0.0" />
+		<PackageReference Include="xunit.extensibility.core" Version="2.9.3" />
 	</ItemGroup>
 
 	<ItemGroup>
