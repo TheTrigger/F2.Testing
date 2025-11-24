@@ -10,7 +10,6 @@
 		<IncludeSymbols>True</IncludeSymbols>
 		<Nullable>enable</Nullable>
 		<PackageIcon>flask.png</PackageIcon>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes></PackageReleaseNotes>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<PackageTags>aspnetcore, xunit, test</PackageTags>
