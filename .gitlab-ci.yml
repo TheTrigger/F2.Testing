@@ -1,0 +1,13 @@
+stages:
+  - build_publish
+
+build_publish:
+  stage: build_publish
+  script:
+    - dotnet build --configuration Release
+    - dotnet test --no-restore --verbosity normal
+    - dotnet pack --no-build --configuration Release F2.Testing/F2.Testing.csproj --output .
+    - dotnet nuget add source "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/nuget/index.json" --name gitlab --username gitlab-ci-token --password "${CI_JOB_TOKEN}" --store-password-in-clear-text
+    - dotnet nuget push "*.nupkg" --source gitlab
+  only:
+    - master
