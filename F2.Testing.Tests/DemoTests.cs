@@ -1,14 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
-using F2.Demo;
+﻿using F2.Demo;
 using F2.Demo.Services;
-using F2.Testing;
+using F2.Testing.Demo;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
-using Microsoft.Extensions.DependencyInjection;
-using F2.Testing.Demo;
 
-namespace F2.Tests;
+namespace F2.Testing.Tests;
 
 /// <summary>
 /// Basic configuration

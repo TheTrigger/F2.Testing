@@ -1,7 +1,7 @@
 ﻿using F2.Testing.Ordering;
 using Xunit;
 
-namespace F2.Tests;
+namespace F2.Testing.Tests;
 
 [TestCaseOrderer(ordererTypeName: "F2.Testing.Ordering.PriorityOrderer", ordererAssemblyName: "F2.Testing")]
 public class ByPriorityOrder
