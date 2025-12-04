@@ -1,6 +1,5 @@
-﻿using F2.Demo;
-using F2.Demo.Services;
-using F2.Testing.Demo;
+﻿using F2.Testing.Demo;
+using F2.Testing.Demo.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;

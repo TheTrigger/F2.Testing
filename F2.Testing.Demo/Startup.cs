@@ -1,12 +1,12 @@
-using F2.Demo.Services;
 using F2.Testing.Demo.Controllers;
+using F2.Testing.Demo.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace F2.Demo;
+namespace F2.Testing.Demo;
 
 public class Startup
 {

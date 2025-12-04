@@ -1,4 +1,4 @@
-﻿using F2.Demo;
+﻿using F2.Testing.Demo;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
