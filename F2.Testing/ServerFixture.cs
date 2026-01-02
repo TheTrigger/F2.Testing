@@ -1,5 +1,4 @@
 ﻿using F2.Testing.Extensions;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -58,6 +57,8 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
                 // Add test settings from the test assembly's output directory
                 var testAssemblyPath = AppContext.BaseDirectory;
                 config.SetBasePath(testAssemblyPath);
+                config.AddJsonFile("appsettings.development.json", optional: true, reloadOnChange: true);
+                config.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
                 config.AddJsonFile("appsettings.test.json", optional: true, reloadOnChange: true);
                 config.AddJsonFile("appsettings.Test.json", optional: true, reloadOnChange: true);
             })
