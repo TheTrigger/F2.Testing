@@ -1,53 +1,38 @@
-﻿using F2.Testing.Ordering;
+using F2.Testing.Ordering;
 using Xunit;
 
 namespace F2.Testing.Tests;
 
-[TestCaseOrderer(ordererTypeName: "F2.Testing.Ordering.PriorityOrderer", ordererAssemblyName: "F2.Testing")]
+[Collection(nameof(ByPriorityOrder))]
+[TestCaseOrderer(typeof(PriorityOrderer))]
 public class ByPriorityOrder
 {
-    public static bool Test1Called;
-    public static bool Test2ACalled;
-    public static bool Test2BCalled;
-    public static bool Test3Called;
+    private static int _executionCount;
 
-    [Fact, TestPriority(5)]
-    public void Test3()
+    [Fact, TestPriority(-5)]
+    public void Test1()
     {
-        Test3Called = true;
-
-        Assert.True(Test1Called);
-        Assert.True(Test2ACalled);
-        Assert.True(Test2BCalled);
-    }
-
-    [Fact, TestPriority(0)]
-    public void Test2B()
-    {
-        Test2BCalled = true;
-
-        Assert.True(Test1Called);
-        Assert.True(Test2ACalled);
-        Assert.False(Test3Called);
+        Assert.Equal(0, _executionCount);
+        _executionCount++;
     }
 
     [Fact]
     public void Test2A()
     {
-        Test2ACalled = true;
-
-        Assert.True(Test1Called);
-        Assert.False(Test2BCalled);
-        Assert.False(Test3Called);
+        Assert.Equal(1, _executionCount);
+        _executionCount++;
     }
 
-    [Fact, TestPriority(-5)]
-    public void Test1()
+    [Fact, TestPriority(0)]
+    public void Test2B()
     {
-        Test1Called = true;
+        Assert.Equal(2, _executionCount);
+        _executionCount++;
+    }
 
-        Assert.False(Test2ACalled);
-        Assert.False(Test2BCalled);
-        Assert.False(Test3Called);
+    [Fact, TestPriority(5)]
+    public void Test3()
+    {
+        Assert.Equal(3, _executionCount);
     }
 }

@@ -153,20 +153,18 @@ public class ServerFixture<TStartup> : WebApplicationFactory<TStartup>, IAsyncLi
 
     #endregion
 
-    public virtual Task InitializeAsync()
+    public virtual ValueTask InitializeAsync()
     {
         _client = CreateClient();
         _scope = Services.CreateScope();
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
-    /// <summary>
-    /// IAsyncLifetime necessario per inizializzare InitializeAsync
-    /// </summary>
-    /// <returns></returns>
-    Task IAsyncLifetime.DisposeAsync()
+    public override async ValueTask DisposeAsync()
     {
-        return base.DisposeAsync().AsTask();
+        _scope?.Dispose();
+        _client?.Dispose();
+        await base.DisposeAsync();
     }
 }
 

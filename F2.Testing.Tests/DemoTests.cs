@@ -25,10 +25,10 @@ public class DemoTests : IClassFixture<ServerFixture<Startup>>, IAsyncLifetime
         //_randomService = _testFixure.GetService<RandomService>();
     }
 
-    public Task InitializeAsync()
+    public ValueTask InitializeAsync()
     {
         _isInitialized = true;
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     [Fact]
@@ -60,8 +60,8 @@ public class DemoTests : IClassFixture<ServerFixture<Startup>>, IAsyncLifetime
         Assert.True(number >= 0);
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 }

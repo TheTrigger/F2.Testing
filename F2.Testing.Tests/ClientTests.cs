@@ -14,19 +14,17 @@ namespace F2.Testing.Tests;
 /// </summary>
 public class ClientTests : IClassFixture<ServerFixture<Startup>>
 {
-    private readonly ServerFixture<Startup> _testFixure;
-    private readonly HttpClient _client;
+    private readonly ServerFixture<Startup> _testFixture;
 
     public ClientTests(ServerFixture<Startup> testFixture)
     {
-        _testFixure = testFixture;
-        _client = _testFixure.CreateClient();
+        _testFixture = testFixture;
     }
 
     [Fact]
     public async Task IsGetWorking()
     {
-        var results = await _client.GetAsync("WeatherForecast").DeserializeAsync<IEnumerable<WeatherForecast>>();
+        var results = await _testFixture.Client.GetAsync("WeatherForecast").DeserializeAsync<IEnumerable<WeatherForecast>>();
         Assert.NotNull(results);
         Assert.NotEmpty(results);
     }
@@ -41,7 +39,7 @@ public class ClientTests : IClassFixture<ServerFixture<Startup>>
             Name = "Fabio"
         };
 
-        var result = await _client.PostAsync("WeatherForecast", dataExample.ToStringContent())
+        var result = await _testFixture.Client.PostAsync("WeatherForecast", dataExample.ToStringContent())
                 .DeserializeAsync<DataExample>();
 
         Assert.NotNull(result);
@@ -61,7 +59,7 @@ public class ClientTests : IClassFixture<ServerFixture<Startup>>
             Name = "Fabio"
         };
 
-        var result = await _testFixure.PutAsync<DataExample>("WeatherForecast", dataExample); // ALTERNATIVE METHOD
+        var result = await _testFixture.PutAsync<DataExample>("WeatherForecast", dataExample);
 
         Assert.NotNull(result);
         Assert.IsType<DataExample>(result);
@@ -74,7 +72,7 @@ public class ClientTests : IClassFixture<ServerFixture<Startup>>
     [Fact]
     public async Task IsDeleteWorking()
     {
-        var results = await _testFixure.DeleteAsync<dynamic>("WeatherForecast");
+        var results = await _testFixture.DeleteAsync<dynamic>("WeatherForecast");
 
         Assert.NotNull(results);
     }
